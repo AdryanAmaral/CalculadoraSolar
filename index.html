@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+</head>
+<body>
+	<script src="https://kit.fontawesome.com/97d94e17be.js" crossorigin="anonymous"></script>
+	<style type="text/css">
+		/*////////////////////////////////////////////////////////////////////////////////////*/
+
+		.calculadora-div{width: 100%;height: 650px;background-color: #f4f4f4;}
+		.calculadora{margin-left: auto;margin-right: auto; width: 60%;height: fit-content;background-color: 143,152,226; display: flex;justify-content: center;}
+		.calc-titulo i{
+			font-size: 68px;
+			color: rgb(255,67,19);
+			padding: 25px;
+		}
+		.calc-titulo{
+			width: 100%;
+			height: fit-content;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		.calc-titulo h2{
+			font-family: signika,sans-serif;
+			font-size: 30px;
+			font-weight: bold;
+			color: #004394;
+		}
+		#frm input[type=text]{
+			font-size: 16px;
+			font-weight: 500;
+			margin-right: 50px;
+			height: 45px;
+			border: 3px solid rgb(255,67,19);
+			border-radius: 50px;
+			padding-left: 25px;
+			color: rgb(255,67,19);
+			transition: all 0.4s;
+			background-color: rgba(0, 0, 0, 	0);
+		}
+		#entrada {
+			width:350px;
+		}
+		#frm input::placeholder{
+		  color: rgb(255, 112, 77);
+		  font-weight: 600;
+		}
+		#frm input{
+			margin-top: 40px;
+		}
+		#frm input[type=text]:hover{
+			border-color: rgb(143,152,226);
+		}
+
+		#frm input[type=button]{
+			border: 3px solid rgb(255,67,19);
+			width: 125px;
+			height: 45px;
+			border-radius: 50px;
+
+			font-family: 'Source Sans Pro', sans-serif;
+			font-weight: 600;
+			font-size: 20px;
+
+			background-color: rgb(255,67,19);
+			color: white;
+			cursor: pointer;
+			transition: all 0.4s;
+		}
+		#frm input[type=button]:hover{
+			background-color: white;
+			color: rgb(255,67,19);
+			border: 3px solid white;
+		}
+		.resultado{
+			margin-top: 50px;
+			width: 100%;
+			height: 250px;
+			display: grid;
+			grid-template-columns:auto auto;
+			grid-template-rows: 40px 40px 40px 40px;
+			align-items: center;
+		}
+		.resultado p{
+			font-family: signika,sans-serif;
+			font-size: 20px;
+			font-weight: 400;
+			color: #004394;
+		}
+		.resultado > p:nth-child(1){
+			font-weight: 700;
+			font-size: 30px;
+		}
+		.resultado > p:nth-child(2){
+			color: rgb(255,67,19);
+			font-weight: 700;
+			font-size: 30px;
+		}
+		.resultado > p:nth-child(4){
+			color: rgb(255,67,19);
+			font-weight: 700;
+		}
+		#frm select{
+		  appearance: none;
+		  border: none;
+		  padding: 0 1em 0 0;
+		  margin: 0;
+		  width: 100%;
+		  font-family: inherit;
+		  font-size: inherit;
+		  cursor: inherit;
+		  line-height: inherit;
+		  
+			padding-left: 30px;
+			margin-right: 50px;
+			width: 200px;
+			height: 45px;
+			border: 3px solid rgb(255,67,19);
+			border-radius: 50px;
+			background-color: transparent;
+			color: rgb(255,67,19);
+		}
+	</style>
+
+	<div class="calculadora-div">
+	<div class="calc-titulo">
+		<i class="fa-solid fa-calculator"></i>
+		<h2>CALCULE AQUI A SUA ECONOMIA!</h2>
+	</div>
+		
+	<div class="calculadora">
+		<form id="frm">
+			<input type="text" size="2" id="entrada" placeholder="Digite a média de gasto do seu serviço(R$)">   
+			<input type="button" value="Calcular" onClick="calc()">
+			<div class="resultado">
+				<p>Valor da parcela <span style="font-family: signika,sans-serif;color: rgb(255,67,19);font-weight: 700; font-size: 30px;">72X</span>:</p>
+				<p id="result3">0</p>
+				<p>Em cada parcela você economiza:</p>
+				<p id="result4">0</p>
+				<p>Valor do projeto:</p>
+				<p id="result2">0</p>
+				<p>Potência do sistema(em KWP):</p>
+				<p id="result1">0</p>
+			</div>
+   		</form>
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+	function calc(){
+		
+		   var entrada=parseFloat(document.getElementById("entrada").value);
+		   var mediagasto = entrada/0.87;
+		   var mediagasto = Math.ceil(mediagasto)-30;
+		   var kwp = mediagasto/110;
+
+		   if(kwp<7){
+		   	valorprojeto = (kwp*4.4)*1000;
+		   }else if(kwp<15){
+		   	valorprojeto = (kwp*4)*1000;
+		   }else if(kwp<30){
+		   	valorprojeto = (kwp*3.8)*1000;
+		   }else if(kwp<75){
+		   	valorprojeto = (kwp*3.5)*1000;
+		   }else{
+		   	valorprojeto = (kwp*3.4)*1000;
+		   }
+
+		   var parcela72 = valorprojeto *0.02184; 
+		   var economia = entrada - parcela72;
+
+		   if(!isNaN(kwp)){ //Not A Number
+		      //alert(calculo);
+		      //document.getElementById("result1").innerHTML = mediagasto;
+		      document.getElementById("result1").innerHTML = kwp.toLocaleString('pt-BR', { style: 'decimal', currency: 'BRL' })+" kwp";
+		      document.getElementById("result2").innerHTML = valorprojeto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		      document.getElementById("result3").innerHTML = parcela72.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		      document.getElementById("result4").innerHTML = economia.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		   }
+	}
+</script>
+
+</body>
+</html>
